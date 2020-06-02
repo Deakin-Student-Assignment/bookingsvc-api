@@ -14,6 +14,16 @@ db.open(function (callback) {
 
 });
 
+isEmptyObject = function (obj, callback) {
+    for (var _id in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, _id)) {
+            callback = false;
+            return callback;
+        }
+    }
+    callback = true;
+    return callback;
+}
 
 // CREATE OPERATION
 router.post('/', (req, res, next) => {
@@ -49,10 +59,19 @@ router.get('/:email', (req, res, next) => {
                 throw err;
             } else {
                 rBooking = result;
-                res.status(200).json({
-                    message: "Booking retrieved: ",
-                    booking: rBooking
-                });
+
+                if (isEmptyObject(rBooking)) {
+                    res.status(200).json({
+                        message: "No booking retrieved for: ",
+                        booking: req.params.email
+                    });
+                } else {
+                    res.status(200).json({
+                        message: "Booking retrieved: ",
+                        booking: rBooking
+                    });
+                }
+
             }
         });
     } catch (err) {

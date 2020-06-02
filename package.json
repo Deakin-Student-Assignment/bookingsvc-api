@@ -13,6 +13,10 @@
     "MongoDBAtlas",
     "booking"
   ],
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/Deakin-Student-Assignment/bookingsvc-api.git"
+  },
   "author": "Connie Cox",
   "license": "ISC",
   "dependencies": {
@@ -21,6 +25,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http": "0.0.1-security",
+    "ibm-cloud-env": "^0.2.6",
     "moment": "^2.26.0",
     "mongodb": "^3.5.7",
     "router": "^1.3.5"
