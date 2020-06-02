@@ -1,0 +1,6 @@
+---
+applications:
+- name: bookingsvc-api
+  command: npm start
+  memory: 128MB
+  random-route: true
