@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-var jsonDiff = require('json-diff');
 
 var db = require("../../config/");
 
