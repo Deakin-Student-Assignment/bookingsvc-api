@@ -38,10 +38,14 @@ router.post('/', (req, res, next) => {
 });
 
 // READ OPERATION
-router.get('/', (req, res, next) => {
+router.get('/:email', (req, res, next) => {
     var rBooking;
+
+    rBooking = "{ \"_id\": \"" + req.params.email + "\"}";
+    rBooking = JSON.parse(rBooking);
+
     try {
-        db.getBooking(req.body, function (err, result) {
+        db.getBooking(rBooking, function (err, result) {
             if (err) {
                 throw err;
             } else {
@@ -98,16 +102,21 @@ router.put('/', (req, res, next) => {
 
 
 // DELETE OPERATION
-router.delete('/', (req, res, next) => {
+router.delete('/:email', (req, res, next) => {
+    var rBooking;
+
+    rBooking = "{ \"_id\": \"" + req.params.email + "\"}";
+    rBooking = JSON.parse(rBooking);
 
     try {
-        db.doDelete(req.body, function (err, result) {
+        db.doDelete(rBooking, function (err, result) {
             if (err) {
                 throw errr;
             } else {
                 booking = result;
                 res.status(200).json({
-                    message: 'Booking deleted.'
+                    message: 'Booking deleted',
+                    booking: rBooking
                 });
             }
 
