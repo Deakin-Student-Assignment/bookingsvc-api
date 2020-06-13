@@ -46,8 +46,8 @@ router.post('/', (req, res, next) => {
     }
 });
 
-// READ OPERATION
-router.get('/:email', (req, res, next) => {
+// READ OPERATION - by User ID
+/*router.get('/:email', (req, res, next) => {
     var rBooking;
 
     rBooking = "{ \"_id\": \"" + req.params.email + "\"}";
@@ -72,6 +72,38 @@ router.get('/:email', (req, res, next) => {
                     });
                 }
 
+            }
+        });
+    } catch (err) {
+        throw err;
+    }
+});*/
+
+// READ OPERATION - by Delivery Date
+router.get('/:date', (req, res) => {
+    var bookingdate;
+
+    bookingdate = "{\"bookingdate.start\":\"" + req.params.date + "\"}"; // "{ \"start\": \"" + req.params.date + "\"}"
+
+    bookingdate = JSON.parse(bookingdate);
+
+    try {
+        db.getBookingByDate(bookingdate, function (err, result) {
+            var rBooking;
+            if (err) {
+                throw err;
+            } else {
+                if (isEmptyObject(req.params.date)) {
+                    res.status(204).json({
+                        message: "No booking retrieved."
+                    });
+                } else {
+                    msg = result;
+                    res.status(200).json({
+                        message: "Booking retrieved for",
+                        bookings: msg
+                    });
+                }
             }
         });
     } catch (err) {

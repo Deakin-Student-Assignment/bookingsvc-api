@@ -60,6 +60,26 @@ module.exports.getBooking = function (request, callback) {
         });
 };
 
+module.exports.getBookingByDate = function (request, callback) {
+    var booking;
+    collection
+        .find(request, function (err, cursor) {
+            if (err) {
+                throw err;
+            } else {
+                cursor.toArray(function (err, result) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        booking = result;
+                    }
+                    return callback(null, booking);
+                });
+            };
+        });
+
+};
+
 module.exports.doUpdate = function (request, newvalues, callback) {
     var booking;
 
