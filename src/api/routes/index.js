@@ -28,7 +28,7 @@ isEmptyObject = function (obj, callback) {
 // CREATE OPERATION
 router.post('/', (req, res, next) => {
     var booking;
-
+    res.set('Access-Control-Allow-Origin', '*');
     try {
         db.doInsertOne(req.body, function (err, result) {
             if (err) {
@@ -36,6 +36,7 @@ router.post('/', (req, res, next) => {
             } else {
                 booking = result;
                 res.status(200).json({
+
                     message: "Booking created.",
                     booking: booking.ops
                 });
